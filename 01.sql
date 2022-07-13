@@ -1,3 +1,5 @@
+-- select
+
 select * from departments;
 
 select department_id, location_id
