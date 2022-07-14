@@ -176,3 +176,30 @@ select last_name, job_id, salary
 from employees
 where job_id like 'SA%' and
     salary not in (2500, 3500);
+--------------------
+
+select last_name, department_id
+from employees
+order by department_id;
+
+select last_name, department_id
+from employees
+order by department_id desc;
+
+select last_name, department_id
+from employees
+order by 2 desc;
+
+select last_name, department_id dept_id
+from employees
+order by dept_id desc;
+
+select last_name
+from employees
+where department_id = 100
+order by hire_date;
+
+select last_name, department_id, salary
+from employees
+where department_id > 80
+order by department_id asc, salary desc;
