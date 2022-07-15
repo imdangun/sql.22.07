@@ -45,6 +45,16 @@ from employees;
 select rpad(salary, 5, '*')
 from employees;
 
+-- 과제] 사원들의 이름, 월급그래프를 조회하라.
+--      그래프는 $1000 당 * 하나를 표시한다.
+select last_name, rpad(' ', salary / 1000 + 1, '*')
+from employees;
+
+-- 과제] 위 그래프를 월급 기준 내림차순 정렬하라.
+select last_name, rpad(' ', salary / 1000 + 1, '*') sal
+from employees
+order by sal desc;
+
 select replace('JACK and JUE', 'J', 'BL')
 from dual;
 
@@ -140,13 +150,3 @@ from dual;
 select last_name, last_day(hire_date)
 from employees
 where months_between(sysdate, hire_date) >= 12 * 20;
-
--- 과제] 사원들의 이름, 월급그래프를 조회하라.
---      그래프는 $1000 당 * 하나를 표시한다.
-select last_name, rpad(' ', salary / 1000 + 1, '*')
-from employees;
-
--- 과제] 위 그래프를 월급 기준 내림차순 정렬하라.
-select last_name, rpad(' ', salary / 1000 + 1, '*') sal
-from employees
-order by sal desc;
