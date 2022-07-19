@@ -126,17 +126,78 @@ on worker.manager_id = manager.employee_id; -- error
 select e.department_id, e.last_name employee, c.last_name colleague
 from employees e join employees c
 on e.department_id = c.department_id
-and e.employee_id != c.employee_id
+and e.employee_id <> c.employee_id
 order by 1, 2, 3;
 
 -- 과제] Davies 보다 후에 입사한 사원들의 이름, 입사일을 조회하라.
+select e.last_name, e.hire_date
+from employees e join employees d
+on d.last_name = 'Davies'
+and e.hire_date > d.hire_date;
 
+-- 과제] 메니저보다 먼저 입사한 사원들의 이름, 입사일, 매니저명, 매니저입사일을 조회하라.
+select w.last_name, w.hire_date, m.last_name, m.hire_date
+from employees w join employees m
+on w.manager_id = m.employee_id
+and w.hire_date < m.hire_date;
+-------------------
 
+-- inner join
+select e.last_name, e.department_id, d.department_name
+from employees e join departments d
+on e.department_id = d.department_id;
 
+select e.last_name, e.department_id, d.department_name
+from employees e left outer join departments d
+on e.department_id = d.department_id;
 
+select e.last_name, e.department_id, d.department_name
+from employees e right outer join departments d
+on e.department_id = d.department_id;
 
+select e.last_name, e.department_id, d.department_name
+from employees e full outer join departments d
+on e.department_id = d.department_id;
 
+-- 과제] 사원들의 이름, 사번, 매니저명, 매니저의사번을 조회하라.
+--       King 사장도 테이블에 포함한다.
+select w.last_name, w.employee_id, m.last_name, m.employee_id
+from employees w left outer join employees m
+on w.manager_id = m.employee_id
+order by 2;
+-----------------------
 
+select d.department_id, d.department_name, d.location_id, l.city
+from departments d, locations l
+where d.location_id = l.location_id;
 
+select d.department_id, d.department_name, d.location_id, l.city
+from departments d, locations l
+where d.location_id = l.location_id
+and d.department_id in (20, 50);
 
+select e.last_name, d.department_name, l.city
+from employees e, departments d, locations l
+where e.department_id = d.department_id
+and d.location_id = l.location_id;
 
+select e.last_name, e.salary, e.job_id
+from employees e, jobs j
+where e.salary between j.min_salary and j.max_salary
+and j.job_id = 'IT_PROG';
+
+select e.last_name, e.department_id, d.department_name
+from employees e, departments d
+where e.department_id(+) = d.department_id;
+
+select e.last_name, e.department_id, d.department_name
+from employees e, departments d
+where e.department_id = d.department_id(+);
+
+select e.last_name, e.department_id, d.department_name
+from employees e, departments d
+where e.department_id(+) = d.department_id(+); -- error
+
+select worker.last_name || ' works for ' || manager.last_name
+from employees worker, employees manager
+where worker.manager_id = manager.employee_id;
