@@ -142,3 +142,5 @@ for departments;
 select * from team;
 
 -- 과제] EMPLOYEES 테이블에 EMPS synonym 을 만들어라.
+create synonym emps
+for employees;
